@@ -42,7 +42,7 @@ export default function SimplePopup(props) {
                 <div>{props.rocket?.description}</div>
         </div></>):(<div>
             <ImageList variant="masonry" cols={3} gap={8}>
-  {props.rocket.flickr_images.map((item) => (
+  {props.rocket?.flickr_images?.map((item) => (
     <ImageListItem key={item}>
       <img style={{height: 160}}
         srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
