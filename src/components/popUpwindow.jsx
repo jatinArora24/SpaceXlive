@@ -16,7 +16,8 @@ export default function SimplePopup(props) {
       <BasePopup id={id} open={props.active} anchor={null}>
         <PopupBody>
           <button
-            style={{ float: "right" }}
+            title="Close"
+            style={{ float: "right", cursor: "pointer" }}
             onClick={() => {
               props.setPopUp(false);
               props.setRocketNo(0);
@@ -43,7 +44,15 @@ export default function SimplePopup(props) {
             </div>
             <div className="popup-content">
               {screen === "overview" ? (
-                <>
+                <div
+                  style={{
+                    height: "727px",
+                    width: "1000px",
+                    display: "flex",
+                    gap: "10px",
+                    borderRadius: "15px",
+                  }}
+                >
                   <img
                     className="rocket-img"
                     src={props?.rocket?.flickr_images}
@@ -52,10 +61,11 @@ export default function SimplePopup(props) {
                     <h3>DESCRIPTION</h3>
                     <div>{props.rocket?.description}</div>
                   </div>
-                </>
+                </div>
               ) : (
                 <div>
                   <Carousel
+                    sx={{ width: "1000px" }}
                     navButtonsAlwaysVisible
                     animation="slide"
                     duration={700}
