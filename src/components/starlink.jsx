@@ -1,6 +1,8 @@
+import "../page/rocketAnim.scss";
 export default function Starlink() {
   return (
     <svg
+      className="starlink"
       width="150"
       height="150"
       viewBox="0 0 714 714"
@@ -105,7 +107,7 @@ export default function Starlink() {
         fill="rgba(255,255,255,0.4)"
       ></rect>
       <path
-        class="blinking-light"
+        className="blinking-light"
         d="M434.234 323.492C426.18 329.194 415.028 327.288 409.325 319.234V319.234C403.623 311.18 405.529 300.028 413.583 294.325V294.325C421.637 288.623 432.789 290.529 438.492 298.583V298.583C444.194 306.637 442.288 317.789 434.234 323.492V323.492Z"
         fill="#00EC09"
       ></path>

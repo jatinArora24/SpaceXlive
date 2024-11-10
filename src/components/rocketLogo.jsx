@@ -1,8 +1,13 @@
-export default function RocketLogo() {
+export default function RocketLogo(props) {
   return (
     <img
-      src="//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Falcon_9_logo.svg/230px-Falcon_9_logo.svg.png"
-      style={{ backgroundColor: "white", height: 80, borderRadius: 15 }}
+      alt="mission patch graphic"
+      src={props.url}
+      style={{
+        backgroundColor: "rgba(218, 177, 218,0.13)",
+        height: 120,
+        borderRadius: 15,
+      }}
     ></img>
   );
 }

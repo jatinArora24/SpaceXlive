@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import LeftPanel from "../components/leftPanel";
 import { useDispatch, useSelector } from "react-redux";
 import SimplePopup from "../components/popUpwindow";
+import { createPortal } from "react-dom";
+
 export default function Rockets() {
   const dispatch = useDispatch();
+
   async function getRocketdata() {
     try {
       const response = await fetch(
@@ -25,10 +28,12 @@ export default function Rockets() {
   }, []);
   const data = useSelector((state) => state.rocekts1);
   const [popUp, setPopUp] = useState(false);
+  const [rocketNo, setRocketNo] = useState(0);
   const [rocket, setRocket] = useState({});
 
-  console.log(data);
-  function handleRocket(rocket) {
+  console.log(popUp);
+  function handleRocket(rocket, index) {
+    setRocketNo(index + 1);
     setRocket(rocket);
     setPopUp(true);
     console.log(rocket);
@@ -49,32 +54,38 @@ export default function Rockets() {
         >
           {data?.docs?.map((rocket, index) => {
             return (
-              <div key={index}>
-                <div className="rocket">
-                  {rocket.name}
-                  <button
-                    onClick={() => {
-                      handleRocket(rocket);
-                    }}
-                    className="rocket-button"
-                  >
-                    <img src={rocket?.flickr_images[0]}></img>
-                    <div
-                      className={`status ${rocket.active ? "" : "inactive"}`}
-                    >
-                      STATUS
-                      <span style={{ display: "block" }}>
-                        {!rocket.active ? "In development" : "Active"}
-                      </span>
-                    </div>
-                  </button>
-                </div>
+              <div key={index} className="rocket">
+                <div> {rocket.name} </div>
+                <button
+                  onClick={() => {
+                    handleRocket(rocket, index);
+                  }}
+                  className={`rocket-button ${
+                    rocketNo === index + 1 ? "active" : ""
+                  }`}
+                >
+                  <img src={rocket?.flickr_images[0]}></img>
+                  <div className={`status ${rocket.active ? "" : "inactive"}`}>
+                    STATUS
+                    <span style={{ display: "block" }}>
+                      {!rocket.active ? "In development" : "Active"}
+                    </span>
+                  </div>
+                </button>
               </div>
             );
           })}
         </div>
       </div>
-      <SimplePopup active={popUp} setPopUp={setPopUp} rocket={rocket} />
+      {createPortal(
+        <SimplePopup
+          active={popUp}
+          setPopUp={setPopUp}
+          setRocketNo={setRocketNo}
+          rocket={rocket}
+        />,
+        document.body
+      )}
     </div>
   );
 }

@@ -1,65 +1,84 @@
 import * as React from "react";
 import { Unstable_Popup as BasePopup } from "@mui/base/Unstable_Popup";
 import { styled } from "@mui/system";
+import Carousel from "react-material-ui-carousel";
 
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
 export default function SimplePopup(props) {
   const [screen, setScreen] = React.useState("overview");
   const id = props.active ? "simple-popper" : undefined;
-
+  const anchor = document.getElementsByClassName("app-container")[0];
+  console.log(anchor);
   return (
-    <div >
+    <div>
       <BasePopup id={id} open={props.active} anchor={null}>
-
-        <PopupBody>            <button style={{float:"right"}} onClick={() =>{ props.setPopUp(false)
-            setScreen("overview")
-        }}>X</button>
-
-            <div  className="popup-wrapper">
-
-          <div>
-            {props.rocket.name}
-            <button
-              className={`popupbtn ${screen == "overview" ? "active" : ""}`}
-              onClick={() => setScreen("overview")}
-            >
-              Overview
-            </button>
-            <button
-              className={`popupbtn ${screen == "photos" ? "active" : ""}`}
-              onClick={() => setScreen("photos")}
-            >
-              Photos
-            </button>
-          </div>
-          <div className="popup-content">
-          {screen=="overview"? 
-            (<><img className="rocket-img" src={props?.rocket?.flickr_images} />
-        <div className="desc-pop">
-                <h3>DESCRIPTION</h3>
-                <div>{props.rocket?.description}</div>
-        </div></>):(<div>
-            <ImageList variant="masonry" cols={3} gap={8}>
-  {props.rocket?.flickr_images?.map((item) => (
-    <ImageListItem key={item}>
-      <img style={{height: 160}}
-        srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
-        src={`${item}?w=248&fit=crop&auto=format`}
-      //  alt={item.title}
-        loading="lazy"
-      />
-    </ImageListItem>
-  ))}
-</ImageList>
-            {/* {props.rocket.flickr_images.map((images)=>{
-                
-                return <img style={{height: 400}} src={images}></img>
-
-            })} */}
-        </div>)}
-          </div>
+        <PopupBody>
+          <button
+            style={{ float: "right" }}
+            onClick={() => {
+              props.setPopUp(false);
+              props.setRocketNo(0);
+              setScreen("overview");
+            }}
+          >
+            X
+          </button>
+          <div className="popup-wrapper">
+            <div>
+              {props.rocket.name}
+              <button
+                className={`popupbtn ${screen === "overview" ? "active" : ""}`}
+                onClick={() => setScreen("overview")}
+              >
+                Overview
+              </button>
+              <button
+                className={`popupbtn ${screen === "photos" ? "active" : ""}`}
+                onClick={() => setScreen("photos")}
+              >
+                Photos
+              </button>
+            </div>
+            <div className="popup-content">
+              {screen === "overview" ? (
+                <>
+                  <img
+                    className="rocket-img"
+                    src={props?.rocket?.flickr_images}
+                  />
+                  <div className="desc-pop">
+                    <h3>DESCRIPTION</h3>
+                    <div>{props.rocket?.description}</div>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <Carousel
+                    navButtonsAlwaysVisible
+                    animation="slide"
+                    duration={700}
+                    height={700}
+                  >
+                    {props.rocket?.flickr_images?.map((item, i) => {
+                      return (
+                        <div>
+                          <img
+                            className="carosel-img"
+                            key={i}
+                            srcSet={`${item}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            src={`${item}?w=248&fit=crop&auto=format`}
+                            alt={item.title}
+                            loading="lazy"
+                          />
+                        </div>
+                      );
+                    })}
+                  </Carousel>
+                </div>
+              )}
+            </div>
           </div>
         </PopupBody>
       </BasePopup>
@@ -88,6 +107,9 @@ const blue = {
   600: "#0072E5",
   700: "#0066CC",
 };
+const BasePopUp = styled(BasePopup)({
+  position: "static",
+});
 
 const PopupBody = styled("div")(
   ({ theme }) => `
@@ -105,9 +127,7 @@ const PopupBody = styled("div")(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   z-index: 1;
-  position: absolute;
-  top: 200px;
-  left: 300px;
+  position: static;
 `
 );
 

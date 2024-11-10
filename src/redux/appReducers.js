@@ -2,15 +2,12 @@ import { combineReducers } from "redux";
 
 const initialState = {
   upcomingLaunches: {},
-  launchpads: {},
-  pastlaunch:{},
-  starlinkQ:{},
-  rockets:{},
+  launchpads: [],
+  pastlaunch: [{}],
+  starlinkQ: {},
+  rockets: {},
 };
-const starlinkReducer = (
-  state = initialState.starlinkQ,
-  action
-) => {
+const starlinkReducer = (state = initialState.starlinkQ, action) => {
   switch (action.type) {
     case "STARLINK":
       return action.data;
@@ -18,10 +15,7 @@ const starlinkReducer = (
       return state;
   }
 };
-const rocketReducer = (
-  state = initialState.rockets,
-  action
-) => {
+const rocketReducer = (state = initialState.rockets, action) => {
   switch (action.type) {
     case "ROCKETS":
       return action.data;
