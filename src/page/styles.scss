@@ -247,7 +247,7 @@
 .rocket-gallery {
   z-index: 1;
   display: flex;
-  gap: 15px;
+  gap: 65px;
   align-items: center;
   overflow: auto;
   width: 100%;
@@ -264,7 +264,8 @@
   padding: 1rem;
   .rocket {
     .rocket-button img {
-      transition: box-shadow 0.65s ease-in-out, transform 0.5s ease-in-out;
+      transition: box-shadow 0.65s ease-in-out, transform 0.5s ease-in-out,
+        border-radius 0.5s ease-in-out;
     }
 
     .rocket-button {
@@ -272,6 +273,7 @@
       &.active {
         cursor: pointer;
         img {
+          border-radius: 20px;
           transform: scale(1.03);
           box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px,
             rgba(255, 255, 255, 0.12) 0px -12px 30px,
@@ -291,16 +293,16 @@
       border: none;
       background-color: transparent;
       .status {
-        position: absolute;
+        // position: absolute;
         bottom: 400px;
-        text-align: left;
+        // text-align: left;
         padding: 5px;
-        border-radius: 5px;
+        border-radius: 0px 0px 5px 5px;
         background-color: rgba(29, 143, 36, 0.4);
         flex-flow: column;
         place-content: normal;
         align-items: normal;
-        margin: 4px 0px;
+        margin: 1px 0px 0px 0px;
         display: flex;
         color: white;
         &.inactive {
@@ -314,8 +316,16 @@
         margin: 0 auto;
         width: 450px;
         height: 350px;
-        border-radius: 15px;
+        border-radius: 15px 15px 0px 0px;
       }
+    }
+    .rocket-name {
+      margin: 8px 16px;
+      font-size: large;
+      border-radius: 10px;
+      //background-color: rgba(100, 3, 255, 0.189);
+      padding: 4px 17px;
+      text-align: center;
     }
   }
 }

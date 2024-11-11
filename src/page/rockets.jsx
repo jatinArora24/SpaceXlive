@@ -55,7 +55,7 @@ export default function Rockets() {
           {data?.docs?.map((rocket, index) => {
             return (
               <div key={index} className="rocket">
-                <div> {rocket.name} </div>
+                <div className="rocket-name"> {rocket.name} </div>
                 <button
                   onClick={() => {
                     handleRocket(rocket, index);
